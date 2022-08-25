@@ -1,0 +1,57 @@
+create table user_info(
+
+user_id varchar(100) not null ,
+user_name varchar(100) not null ,
+user_age int not null,
+user_phone varchar(100) not null ,
+user_licence_number int not null,
+primary key (user_id)
+);
+
+drop table rent_user_info;
+
+create table rent_user_info (
+
+rent_seq int auto_increment,
+rent_user_id varchar(100) not null ,
+rent_car_id varchar(100) not null ,
+rent_days int default 1,
+rent_price int not null,
+rent_status char(10) comment '랜트상태, 대여중/반납완료',
+primary key (rent_seq),
+foreign key (rent_user_id) references user_info(user_id),
+foreign key (rent_car_id) references car_info(car_id)
+
+);
+
+create table car_info(
+
+car_id varchar(100) not null,
+car_company varchar(100) not null ,
+car_name varchar(100) not null ,
+car_year int not null comment '연식',
+car_fuel varchar(100) not null comment '가솔린/디젤/하이브리드/LPG/전기/수소',
+car_count int comment '소유 대수',
+rent_count int default 0 comment '렌트 대수',
+primary key (car_id)
+
+)
+
+
+
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('100','A','A1car',1,'가솔린',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('200','A','A2car',1,'디젤',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('300','B','B1car',1,'하이브리드',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('400','D','D1car',4,'전기',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('500','F','F1car',5,'디젤',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('600','C','C1car',3,'하이브리드',1);
+insert into car_info (car_id, car_company, car_name, car_year, car_fuel, car_count)
+values('700','D','D2car',2,'LPG',2);
+
+select car_id from car_info where car_count = 0
